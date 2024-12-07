@@ -1,0 +1,49 @@
+datasource db {
+  provider="postgresql"
+  url = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id BigInt @id @default(autoincrement())
+  email String @unique
+  user_name String @unique @db.VarChar(255)
+  created_at DateTime @default(now())
+  projects Project[]
+}
+
+model Project {
+  id BigInt @id @default(autoincrement())
+  author User? @relation(fields:[author_id], references:[id])
+  author_id BigInt?
+
+  project_name String @db.VarChar(255)
+  project_description String? @db.VarChar(4095)
+  tasks Task[]
+  created_at DateTime @default(now())
+}
+
+model Task {
+  id BigInt @id @default(autoincrement())
+  parent_project Project? @relation(fields: parent_project_id, references: [id])
+  parent_project_id BigInt?
+  due_date DateTime?
+
+  task_name String @db.VarChar(255)
+  task_description String? @db.VarChar(4095)
+
+  parent_task_connections TaskConnection[] @relation(name: "parent_task_connections")
+  child_task_connections TaskConnection[] @relation(name: "child_task_connections")
+
+  complete Boolean @default(false)
+  created_at DateTime @default(now())
+}
+
+model TaskConnection {
+  id BigInt @id @default(autoincrement())
+  parent_task Task? @relation(name: "parent_task_connections", fields: parent_task_id, references:[id])
+  parent_task_id BigInt
+
+  child_task Task? @relation(name: "child_task_connections", fields: child_task_id, references:[id])
+  child_task_id BigInt
+}
