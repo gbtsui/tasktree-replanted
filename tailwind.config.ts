@@ -11,7 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        darkforestgreen: "var(--darkforestgreen)",
+        forestgreen: "var(--forestgreen)",
+        cream: "var(--cream)",
+        eggshell: "var(--eggshell)",
       },
+      fonts: {
+        atkinsonhyperlegible: "var(--fonts-atkinson-hyperlegible)",
+        atkinsonmonolegible: "var(--fonts-atkinson-monolegible)",
+      }
     },
   },
   plugins: [],
