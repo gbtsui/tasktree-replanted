@@ -1,19 +1,11 @@
 import Logo from "@/app/components/logo";
 import Image from "next/image";
+import Navbar from "@/app/components/universal/navbar"
 
 export default function Home() {
     return (
         <div className={"--font-atkinsonHyperlegible text-eggshell"}>
-            <div id="navbar" className="w-full p-3 flex items-center justify-between clear-both">
-                <Image
-                    src={"./icon.svg"}
-                    width={50}
-                    height={50}
-                    alt={"logo but smol"}></Image>
-                <button
-                    className={"p-4 text-darkforestgreen bg-eggshell hover:bg-cream color-darkforestgreen transition rounded-bl-xl rounded-tr-xl rounded-br-sm rounded-tl-sm"}>Login
-                </button>
-            </div>
+            <Navbar/>
             <div id="header" className="page clear-both items-center text-center flex justify-center p-7">
                 <Logo/>
                 <div className="items-center overflow-auto">
