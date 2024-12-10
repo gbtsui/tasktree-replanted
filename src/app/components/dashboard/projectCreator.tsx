@@ -1,4 +1,3 @@
-
 import type {User, Task} from "@prisma/client"
 import {CreateProject} from "@/app/api/dashboard/createProject"
 
@@ -13,11 +12,11 @@ interface Project {
 }
 
 export default function ProjectCreator() {
-    async function create(formData){
+    async function create(formData) {
         "use server"
         const project_name: string = formData.get("project_name");
-        const project_description:string = formData.get("project_description");
-        const author_username:string = formData.get("author");
+        const project_description: string = formData.get("project_description");
+        const author_username: string = formData.get("author");
 
         CreateProject(
             author_username,
@@ -29,7 +28,8 @@ export default function ProjectCreator() {
     return (
         <form className={"justify-center"} action={create}>
             <label className={"text-2xl"}>
-                Project Name: <input name="project_name" type="text" className={"text-forestgreen"} defaultValue={"New Project"}/>
+                Project Name: <input name="project_name" type="text" className={"text-forestgreen"}
+                                     defaultValue={"New Project"}/>
             </label>
             <hr/>
             <label>
