@@ -1,4 +1,3 @@
-import {User, Project} from '@prisma/client'
 import {prisma} from '@/app/api/db'
 
 export async function CreateProject(user_name: string, project_name: string, project_description: string) {
@@ -11,13 +10,18 @@ export async function CreateProject(user_name: string, project_name: string, pro
         return Error('User not found')
     }
 
-    await prisma.project.create({
-        data: {
-            project_name: project_name,
-            project_description: project_description,
-            author_id: UserData.id,
-        }
-    })
+    try {
+        await prisma.project.create({
+            data: {
+                project_name: project_name,
+                project_description: project_description,
+                author_id: UserData.id,
+            }
+        })
+        return "Project created"
+    } catch (error) {
+        console.log(error)
+        return "Error creating new project"
+    }
 
-    return "Project created"
 }
