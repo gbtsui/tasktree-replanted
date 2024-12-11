@@ -9,8 +9,7 @@ export default async function Dashboard() {
 
     return (
         <main>
-            <Logo/>
-            <h1 className={"mb-4 text-xl md:text-2xl"}>
+            <h1 className={"mb-4 text-8xl font-bold"}>
                 Dashboard
             </h1>
             <ProjectList projects={projects}/>
