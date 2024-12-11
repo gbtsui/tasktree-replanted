@@ -11,7 +11,7 @@ export default function SignupPage() {
             </div>
             <div className="page text-center">
                 <main className="page">
-                    <!--<LoginForm/>-->
+                    {/*<LoginForm/>*/}
                     in progress
                 </main>
             </div>
