@@ -1,4 +1,5 @@
 import type {User, Task} from "@prisma/client"
+import ProjectDeleter from "./projectDeleter"
 
 interface Project {
     project_name: string,
@@ -15,9 +16,11 @@ export default function ProjectList({projects}: {projects: Project[]}) {
         <div className={"flex flex-wrap m-2 justify-center"}>
             {
                 projects.map(
-                    x => <div className={"border-2 border-forestgreen p-4 m-3 w-1/3 flex-auto overflow-auto"}>
-                        <h1 className={"text-3xl font-bold"}>
+                    x => <div className={"border-2 border-forestgreen p-4 m-3 w-1/3 h-80 flex-auto overflow-auto"}
+                              key={x.id}>
+                        <h1 className={"text-3xl font-bold flex justify-between mb-2"}>
                             {x.project_name} [{x.id}]
+                            <ProjectDeleter id={x.id}/>
                         </h1>
                         <p className={"text-m"}>
                             {x.project_description}
