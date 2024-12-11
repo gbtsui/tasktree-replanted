@@ -11,17 +11,14 @@ export default function ProjectDeleter({id}: {id: bigint}) {
     }
         **/
 
-    // @ts-ignore
     const ConfirmationDialog = ({ onClose, onConfirm, title, message }) => {
         return (
-            <div>
-                <div className={"dialog"}>
-                    <h2>{title}</h2>
-                    <p>{message}</p>
-                    <div className={"dialog-buttons"}>
-                        <button onClick={onClose}>Cancel</button>
-                        <button onClick={onConfirm}>Confirm</button>
-                    </div>
+            <div className="clear-both justify-center align-center">
+                <h2>{title}</h2>
+                <p className={"text-lg"}>{message}</p>
+                <div className={"text-darkforestgreen"}>
+                    <button onClick={onClose} className={"p-3 bg-cream m-2"}>Cancel</button>
+                    <button onClick={onConfirm} className={"p-3 bg-cream m-2"}>Confirm</button>
                 </div>
             </div>
         )
@@ -43,14 +40,16 @@ export default function ProjectDeleter({id}: {id: bigint}) {
         setIsOpen(false);
     }
 
-    var message: string = "Are you sure you want to delete your project? You can't undo this operation!"
+    let message: string = "Are you sure you want to delete your project? You can't undo this operation!"
 
     return (
         <div>
-            <button onClick={openDialog} className={"open-button"}>Delete</button>
-                {isOpen && (
-                    <ConfirmationDialog
-                        onClose={closeDialog}
+            {!isOpen && (
+                <button onClick={openDialog} className={"open-button"}>Delete</button>
+            )}
+            {isOpen && (
+                <ConfirmationDialog
+                    onClose={closeDialog}
                         onConfirm={handleConfirm}
                         title="Delete Project"
                         message={message}
