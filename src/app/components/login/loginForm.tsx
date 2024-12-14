@@ -1,22 +1,27 @@
-export default function LoginForm() {
-    async function handleSubmit(formData) {
-        "use server"
-        const email: string = formData.get("email-username");
+//import redirect from "next/navigation"
+//import {AuthError} from "next-auth"
+import {signIn} from "root/auth"
 
-        console.log(email)
-    }
-
+const LoginForm =  () => {
     return (
-        <form onSubmit={handleSubmit} className={"flex flex-col items-start text-4xl ml-9"}>
+        <form
+            action={async (formData) => {
+                "use server"
+                await signIn("credentials", formData, {redirectUrl: "/dashboard"})
+            }}
+            className={"flex flex-col items-start text-4xl ml-9"}>
             <label className={"p-4"}>
-                <input name={"email-username"} type={"text"} placeholder={"Username"} className={"text-darkforestgreen text-5xl p-2 bg-cream m-3 rounded-bl-lg rounded-tr-lg"} required/>
+                <input name={"email"} type={"email"} placeholder={"Email"} className={"text-darkforestgreen text-5xl p-2 bg-cream m-3 rounded-bl-lg rounded-tr-lg"} required/>
             </label><br/>
             <label className={"p-4"}>
                 <input name={"password"} type={"password"} placeholder={"Password"} className={"text-darkforestgreen text-5xl p-2 bg-cream m-3"} required/>
             </label><br/>
-            <label className={""}>
-                <input type={"submit"} value={"Login"} className={"text-darkforestgreen p-5 mt-1 bg-cream rounded-bl-lg rounded-tr-lg"}/>
+            <label className={"p-4"}>
+                <input type={"submit"} value={"Login"} className={"text-darkforestgreen p-5 m-3 mt-1 bg-cream rounded-bl-lg rounded-tr-lg"}/>
             </label>
         </form>
     )
 }
+
+export default LoginForm
+
