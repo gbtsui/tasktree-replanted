@@ -1,4 +1,3 @@
-import Logo from "@/app/components/logo"
 import {GetProjects} from "@/app/api/dashboard/getProjects"
 import ProjectList from "@/app/components/dashboard/projectList"
 import ProjectCreator from "@/app/components/dashboard/projectCreator"
