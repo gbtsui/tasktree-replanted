@@ -10,7 +10,7 @@ export default function ProjectDeleter({id}: {id: bigint}) {
         return "Project Deleted";
     }
         **/
-
+    //@ts-ignore
     const ConfirmationDialog = ({ onClose, onConfirm, title, message }) => {
         return (
             <div className="clear-both justify-center align-center">
