@@ -2,9 +2,9 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import {prisma} from "@/app/api/db"
 import bcrypt from "bcrypt";
+import { ZodError } from "zod";
 import {User} from "@prisma/client";
-import {z} from "zod";
-import {AdapterUser} from "@auth/core/adapters";
+import {signInSchema} from "@/app/utils/credentialValidation";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
@@ -15,42 +15,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
 
             authorize: async (credentials) => {
-
-
                 try {
                     let user: User | null = null
 
+                    const { email, password } = await signInSchema.parseAsync(credentials)
+
                     user = await prisma.user.findUnique({
                         where: {
-                            email: credentials.email,
+                            email: email,
                         }
                     })
                     if (!user) {
-                        throw new Error("User does not exist")
+                        return null
                     }
-                    const matchingPasswords: boolean = await bcrypt.compare(credentials.password, user.password)
+                    const matchingPasswords: boolean = await bcrypt.compare(password, user.password)
                     if (!matchingPasswords) {
-                        throw new Error("Invalid credentials.")
+                        return null
                     }
 
                     console.log (user.user_name, " signed in")
                     return user
                 } catch (error) {
-                    console.error("Authentication error: ", error)
-                    if (error instanceof Error && error.message === "User does not exist") {
-                        return { error: "USER_NOT_FOUND" }
-                    } else if (error instanceof Error && error.message === "Invalid credentials."){
-                        return { error: "INVALID_CREDENTIALS"}
+                    if (error instanceof ZodError) {
+                        return null
                     }
                 }
 
             }
         }),
     ],
+
     callbacks: {
-        async signIn({user}){
-            return !!user;
-        }
+
     },
 
     pages: {

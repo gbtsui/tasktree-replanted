@@ -1,14 +1,18 @@
 //import redirect from "next/navigation"
 //import {AuthError} from "next-auth"
 import {signIn} from "root/auth"
-import {redirect} from "next/navigation";
 
 const LoginForm =  () => {
     return (
         <form
             action={async (formData) => {
                 "use server"
-                await signIn("credentials", formData, {redirect: redirect("/dashboard/login-success")})
+                const result = await signIn("credentials", formData, {redirectTo: "/dashboard/login-success"}) //returns never???
+                if (result) {
+                    console.log("signed in successfully")
+                } else {
+                    console.log("not signed in successfully")
+                }
             }}
             className={"flex flex-col items-start text-4xl ml-9"}>
             <label className={"p-4"}>
