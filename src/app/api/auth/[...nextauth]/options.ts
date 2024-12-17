@@ -59,6 +59,9 @@ export const options: NextAuthOptions = {
             return randomUUID?.() ?? randomBytes(32).toString("hex")
         }
     },
+    pages: {
+        //signIn: "/login"
+    }
 }
 
 export default NextAuth(options)

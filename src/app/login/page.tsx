@@ -7,7 +7,7 @@ export default function LoginPage() {
             <Navbar/>
             <div id="header" className="page clear-both items-center text-center flex justify-center p-7">
                 <div className="items-center overflow-auto flex justify-center p-7">
-                    <h1 className={"text-9xl mx-0"}>login</h1>
+                    <h1 className={"text-9xl mx-0"}>.login</h1>
                 </div>
             </div>
             <div className="page text-center">
